@@ -3,6 +3,8 @@
 
 namespace PartnerCenterPayoutAPISampleCode
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Net.Http;
 
@@ -13,24 +15,42 @@ namespace PartnerCenterPayoutAPISampleCode
             // Retrieve an Azure AD access token which will be passed in the Authorization header of the request.
             string accessToken = UserCredentialTokenGenerator.GetAccessToken().Result;
 
+            //***************************************************************************************************************
+            // TRANSACTION HISTORY EXPORT APIS
+            //***************************************************************************************************************
+
             // Create a new transaction history export request
-            HttpResponseMessage response = TransactionHistory.CreateRequest(accessToken);
+            HttpResponseMessage transactionHistoryResponse = TransactionHistory.CreateRequest(accessToken);
+            var transactionHistoryResponseObject = transactionHistoryResponse.Content.ReadAsStringAsync().Result;
+            PrintResponse(transactionHistoryResponse);
 
-            Console.WriteLine(response);
-            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
-            response.Dispose();
+            // Read the requestId from the response object and get the request details.
+            var transactionHistoryRequestId = ((JObject.Parse(transactionHistoryResponseObject))["value"][0])["requestId"].ToString();
+            HttpResponseMessage transactionHistoryStatusResponse = TransactionHistory.GetRequest(accessToken, transactionHistoryRequestId);
+            PrintResponse(transactionHistoryStatusResponse);
 
-            //Read the request status polling url from the response's location header
-            string transactionHistoryStatusUrl = response.Headers.Location.ToString();
+            //***************************************************************************************************************
+            // PAYMENTS EXPORT APIS
+            //***************************************************************************************************************
 
-            HttpResponseMessage statusResponse = TransactionHistory.GetRequest(accessToken, transactionHistoryStatusUrl);
+            // Create a new payments export request
+            HttpResponseMessage paymentsResponse = Payments.CreateRequest(accessToken);
+            var paymentsResponseObject = paymentsResponse.Content.ReadAsStringAsync().Result;
+            PrintResponse(paymentsResponse);
 
-            Console.WriteLine(statusResponse);
-            Console.WriteLine(statusResponse.Content.ReadAsStringAsync().Result);
-            statusResponse.Dispose();
+            // Read the requestId from the response object and get the request details.
+            var paymentsRequestId = ((JObject.Parse(paymentsResponseObject))["value"][0])["requestId"].ToString();
+            HttpResponseMessage statusResponse = Payments.GetRequest(accessToken, paymentsRequestId);
+            PrintResponse(statusResponse);
 
             Console.Read();
         }
 
+        public static void PrintResponse(HttpResponseMessage response)
+        {
+            Console.WriteLine(response);
+            Console.WriteLine(JsonConvert.SerializeObject(JObject.Parse(response.Content.ReadAsStringAsync().Result), Formatting.Indented));
+            response.Dispose();
+        }
     }
 }
