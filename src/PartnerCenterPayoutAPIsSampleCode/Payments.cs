@@ -13,8 +13,8 @@ namespace PartnerCenterPayoutAPISampleCode
     {
         private static HttpClient _httpClient = new HttpClient();
         private static string domain = "https://api.partner.microsoft-int.com/";
-        private static string basePath = "v1.0/beta/payout/";
-        private static string resource = "payments/";
+        private static string basePath = "v1.0/payouts/";
+        private static string resource = "payments";
 
         /// <summary>
         /// Creates a new Partner Center Payout Payments request.
@@ -41,7 +41,7 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage GetRequest(string accessToken, string requestId)
         {
-            var paymentsStatusUrl = domain + basePath + resource + requestId;
+            var paymentsStatusUrl = domain + basePath + resource + "/" + requestId;
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, paymentsStatusUrl);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -59,7 +59,7 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage DeleteRequest(string accessToken, string requestId)
         {
-            string deletePaymentsRequestURI = domain + basePath + resource + requestId;
+            string deletePaymentsRequestURI = domain + basePath + resource + "/" + requestId;
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Delete, deletePaymentsRequestURI);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);

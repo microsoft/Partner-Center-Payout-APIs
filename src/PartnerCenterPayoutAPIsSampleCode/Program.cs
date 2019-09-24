@@ -3,11 +3,12 @@
 
 namespace PartnerCenterPayoutAPISampleCode
 {
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Net.Http;
-
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using PartnerCenterPayoutAPIsSampleCode;
+    
     class Program
     {
         static void Main(string[] args)
@@ -21,13 +22,16 @@ namespace PartnerCenterPayoutAPISampleCode
 
             // Create a new transaction history export request
             HttpResponseMessage transactionHistoryResponse = TransactionHistory.CreateRequest(accessToken);
-            var transactionHistoryResponseObject = transactionHistoryResponse.Content.ReadAsStringAsync().Result;
             PrintResponse(transactionHistoryResponse);
 
-            // Read the requestId from the response object and get the request details.
-            var transactionHistoryRequestId = ((JObject.Parse(transactionHistoryResponseObject))["value"][0])["requestId"].ToString();
+            // Get the export files for a previously created request's requestId.
+            var transactionHistoryRequestId = "3c150cae-11ce-412b-a6bd-29a946471841";
             HttpResponseMessage transactionHistoryStatusResponse = TransactionHistory.GetRequest(accessToken, transactionHistoryRequestId);
+            string transactionHistoryBlobLocation = JObject.Parse(transactionHistoryStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["blobLocation"].ToString();
             PrintResponse(transactionHistoryStatusResponse);
+            
+            // Download the export zip file to local machine.
+            Utils.DownloadBlob(transactionHistoryBlobLocation);
 
             //***************************************************************************************************************
             // PAYMENTS EXPORT APIS
@@ -35,13 +39,16 @@ namespace PartnerCenterPayoutAPISampleCode
 
             // Create a new payments export request
             HttpResponseMessage paymentsResponse = Payments.CreateRequest(accessToken);
-            var paymentsResponseObject = paymentsResponse.Content.ReadAsStringAsync().Result;
             PrintResponse(paymentsResponse);
 
-            // Read the requestId from the response object and get the request details.
-            var paymentsRequestId = ((JObject.Parse(paymentsResponseObject))["value"][0])["requestId"].ToString();
-            HttpResponseMessage statusResponse = Payments.GetRequest(accessToken, paymentsRequestId);
-            PrintResponse(statusResponse);
+            // Get the export files for a previously created request's requestId.
+            var paymentsRequestId = "a2c409ec-2109-4470-9b69-208c41ed10fb";
+            HttpResponseMessage paymentsStatusResponse = Payments.GetRequest(accessToken, paymentsRequestId);
+            string paymentsBlobLocation = JObject.Parse(paymentsStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["blobLocation"].ToString();
+            PrintResponse(paymentsStatusResponse);
+
+            // Download the export zip file to local machine.
+            Utils.DownloadBlob(paymentsBlobLocation);
 
             Console.Read();
         }
