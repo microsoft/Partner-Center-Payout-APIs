@@ -5,7 +5,10 @@ namespace PartnerCenterPayoutAPISampleCode
 {
     using System;
     using System.Net.Http;
-
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using PartnerCenterPayoutAPIsSampleCode;
+    
     class Program
     {
         static void Main(string[] args)
@@ -13,24 +16,48 @@ namespace PartnerCenterPayoutAPISampleCode
             // Retrieve an Azure AD access token which will be passed in the Authorization header of the request.
             string accessToken = UserCredentialTokenGenerator.GetAccessToken().Result;
 
+            //***************************************************************************************************************
+            // TRANSACTION HISTORY EXPORT APIS
+            //***************************************************************************************************************
+
             // Create a new transaction history export request
-            HttpResponseMessage response = TransactionHistory.CreateRequest(accessToken);
+            HttpResponseMessage transactionHistoryResponse = TransactionHistory.CreateRequest(accessToken);
+            PrintResponse(transactionHistoryResponse);
 
-            Console.WriteLine(response);
-            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
-            response.Dispose();
+            // Get the export files for a previously created request's requestId.
+            var transactionHistoryRequestId = "3c150cae-11ce-412b-a6bd-29a946471841";
+            HttpResponseMessage transactionHistoryStatusResponse = TransactionHistory.GetRequest(accessToken, transactionHistoryRequestId);
+            string transactionHistoryBlobLocation = JObject.Parse(transactionHistoryStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["blobLocation"].ToString();
+            PrintResponse(transactionHistoryStatusResponse);
+            
+            // Download the export zip file to local machine.
+            Utils.DownloadBlob(transactionHistoryBlobLocation);
 
-            //Read the request status polling url from the response's location header
-            string transactionHistoryStatusUrl = response.Headers.Location.ToString();
+            //***************************************************************************************************************
+            // PAYMENTS EXPORT APIS
+            //***************************************************************************************************************
 
-            HttpResponseMessage statusResponse = TransactionHistory.GetRequest(accessToken, transactionHistoryStatusUrl);
+            // Create a new payments export request
+            HttpResponseMessage paymentsResponse = Payments.CreateRequest(accessToken);
+            PrintResponse(paymentsResponse);
 
-            Console.WriteLine(statusResponse);
-            Console.WriteLine(statusResponse.Content.ReadAsStringAsync().Result);
-            statusResponse.Dispose();
+            // Get the export files for a previously created request's requestId.
+            var paymentsRequestId = "a2c409ec-2109-4470-9b69-208c41ed10fb";
+            HttpResponseMessage paymentsStatusResponse = Payments.GetRequest(accessToken, paymentsRequestId);
+            string paymentsBlobLocation = JObject.Parse(paymentsStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["blobLocation"].ToString();
+            PrintResponse(paymentsStatusResponse);
+
+            // Download the export zip file to local machine.
+            Utils.DownloadBlob(paymentsBlobLocation);
 
             Console.Read();
         }
 
+        public static void PrintResponse(HttpResponseMessage response)
+        {
+            Console.WriteLine(response);
+            Console.WriteLine(JsonConvert.SerializeObject(JObject.Parse(response.Content.ReadAsStringAsync().Result), Formatting.Indented));
+            response.Dispose();
+        }
     }
 }
