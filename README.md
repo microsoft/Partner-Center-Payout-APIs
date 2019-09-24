@@ -4,11 +4,10 @@ languages:
 - csharp
 products:
 - dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+description: "Sample Code for using Partner Experiences Payout APIs"
 ---
 
-# Official Microsoft Sample
+# Sample Code for using Partner Experiences Payout APIs
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
@@ -18,36 +17,33 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-Give a short description for your sample here. What does it do and why is it important?
+The Partner Center [Payments](https://partner.microsoft.com/dashboard/payouts/reports/incentivepayments) and [Transaction History](https://partner.microsoft.com/dashboard/payouts/reports/transactionhistory) reports have been built to provide the following high level benefits:
+- Multi-MPN and/or publisher aggregated view (driven by user’s permission settings) 
+- Rich filtering experience 
+- Simplified export functionality for multiple MPNs and/or publishers
+- Enhanced data transparency on the UI
 
-## Contents
-
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
-
-| File/folder       | Description                                |
-|-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
-| `.gitignore`      | Define what to ignore at commit time.      |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
+Building on these capabilities, we are now introducing the ability for partners to use an API to get their Payout data directly. This leverages the capability of the [Export data](https://partner.microsoft.com/dashboard/payouts/reports/incentiveexport) that you might find on the Partner Center UI.
 
 ## Prerequisites
+- [Register an application with AAD/Microsoft Identity](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) in the Azure portal. Add appropriate owners and roles to the application.
+- Install [Visual Studio](https://visualstudio.microsoft.com/downloads/) for your platform.
 
-Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
+## Running the sample
+1. Clone or download this sample repository.
+2. Open the solution file (..\Partner-Center-Payout-APIs\src\PartnerCenterPayoutAPIsSampleCode\PartnerCenterPayoutAPIsSampleCode.sln) in Visual Studio or your preferred IDE.
+3. Add the values for the tenantId, clientId, userName and password keys in the App.config file. TenantId and ClientId values can be found under your Azure Active Directory application registered on the Azure portal during setup.
+4. Add the necessary requestId you want to retrieve the data for in Program.cs.
+5. Add appropriate filter conditions if any in the TransactionHistory.cs file for [Transaction history request](https://docs.microsoft.com/en-us/partner-center/understand-incentive-payouts#transaction-history-download-export) and/or Payments.cs file for [Payments request](https://docs.microsoft.com/en-us/partner-center/understand-incentive-payouts#payment-download-export).
+6. Hit F5 or run the PartnerCenterPayoutAPIsSampleCode project.
 
-## Setup
+## Important reminders
+1. Given the large volume of data, the SLA for the submitted request to be processed is 24 hours. 
+2. Once the data is available for download, the delete API can also be used to delete any of the previous transaction history or payments requests. 
+3. Requests created through the API or the UI will be visible on the [Export data](https://partner.microsoft.com/dashboard/payouts/reports/incentiveexport) page and can be downloaded or deleted through the API or UI.
 
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
-
-## Runnning the sample
-
-Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
-
-## Key concepts
-
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+## Coming soon
+The API is created to address the enhanced partner demand for Payment and Transaction history information access in a programmatic manner. There will continue to be enhancements made to the API with the updated documentation. Additionally, incorporation of the API with the Partner Center SDK will be explored.
 
 ## Contributing
 

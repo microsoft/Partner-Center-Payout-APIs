@@ -23,7 +23,7 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage CreateRequest(string accessToken)
         {
-            // Add your filter string below if any. Example - "?$filter=programName eq 'Azure Marketplace'";
+            // Add your filter string below if any. Example - "?$filter=payoutStatusUpdateTS le 2019-09-24T20:51:19.155Z and (paymentId eq '006772397028')";
             string filterString = "";
             string createPaymentsRequestURI = domain + basePath + resource + filterString;
 
