@@ -23,7 +23,9 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage CreateRequest(string accessToken)
         {
-            string createPaymentsRequestURI = domain + basePath + resource + "?$filter=programName eq 'Azure Marketplace'";
+            // Add your filter string below if any. Example - "?$filter=programName eq 'Azure Marketplace'";
+            string filterString = "";
+            string createPaymentsRequestURI = domain + basePath + resource + filterString;
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, createPaymentsRequestURI);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
