@@ -23,7 +23,9 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage CreateRequest(string accessToken)
         {
-            string createTransactionHistoryRequestURI = domain + basePath + resource + "?$filter=earningForDate ge 2019-09-12T00:00:00.000Z and earningForDate lt 2019-09-18T00:00:00.000Z";
+            // Add your filter string below if any. Example - "?$filter=earningForDate le 2019-09-24T20:51:35.174Z and (paymentId eq '006772397028')";
+            string filterString = "";
+            string createTransactionHistoryRequestURI = domain + basePath + resource + filterString;
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, createTransactionHistoryRequestURI);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
