@@ -4,10 +4,10 @@ languages:
 - csharp
 products:
 - dotnet
-description: "Sample Code for using Partner Experiences Payout APIs"
+description: "Sample code for using Partner Center Payout APIs"
 ---
 
-# Sample Code for using Partner Experiences Payout APIs
+# Sample code for using Partner Center Payout APIs
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
@@ -24,6 +24,10 @@ The Partner Center [Payments](https://partner.microsoft.com/dashboard/payouts/re
 - Enhanced data transparency on the UI
 
 Building on these capabilities, we are now introducing the ability for partners to use an API to get their Payout data directly. This leverages the capability of the [Export data](https://partner.microsoft.com/dashboard/payouts/reports/incentiveexport) that you might find on the Partner Center UI.
+
+Available APIs - https://apidocs.microsoft.com/services/partnerpayouts
+- Transaction history export - [Create]() a new request, [Retrieve]() an existing request and [Delete]() an existing request.
+- Payments export - [Create]() a new request, [Retrieve]() an existing request and [Delete]() an existing request.
 
 ## Prerequisites
 - [Register an application with AAD/Microsoft Identity](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) in the Azure portal. Add appropriate owners and roles to the application.
