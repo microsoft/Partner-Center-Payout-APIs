@@ -12,7 +12,7 @@ namespace PartnerCenterPayoutAPISampleCode
     public class Payments
     {
         private static HttpClient _httpClient = new HttpClient();
-        private static string domain = "https://api.partner.microsoft-int.com/";
+        private static string domain = "https://api.partner.microsoft.com/";
         private static string basePath = "v1.0/payouts/";
         private static string resource = "payments";
 
@@ -23,7 +23,10 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage CreateRequest(string accessToken)
         {
-            // Add your filter string below if any. Example - "?$filter=payoutStatusUpdateTS le 2019-09-24T20:51:19.155Z and (paymentId eq '006772397028')";
+            // Add your odata filter string below if any. 
+            // SUPPORTED $filter fields are - payoutStatusUpdateTS, enrollmentParticipantId, programName, payoutOrderType, paymentId
+            // Example filter string - "?$filter=payoutStatusUpdateTS le 2019-09-25T23:11:55.647Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'Azure Marketplace') and (payoutOrderType eq 'SELL') and (paymentId eq '000000000000')";
+
             string filterString = "";
             string createPaymentsRequestURI = domain + basePath + resource + filterString;
 

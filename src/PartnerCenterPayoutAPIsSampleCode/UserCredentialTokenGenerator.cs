@@ -18,7 +18,7 @@ namespace PartnerCenterPayoutAPISampleCode
             string clientId = ConfigurationManager.AppSettings.Get("clientId");
             string userName = ConfigurationManager.AppSettings.Get("userName");
             string password = ConfigurationManager.AppSettings.Get("password");
-            string scope = "https://api.partner.microsoft-int.com";
+            string scope = "https://api.partner.microsoft.com";
 
             string tokenEndpointFormat = "https://login.microsoftonline.com/{0}/oauth2/token";
             string tokenEndpoint = string.Format(tokenEndpointFormat, tenantId);

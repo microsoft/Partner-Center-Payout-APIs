@@ -12,7 +12,7 @@ namespace PartnerCenterPayoutAPISampleCode
     public class TransactionHistory
     {
         private static HttpClient _httpClient = new HttpClient();
-        private static string domain = "https://api.partner.microsoft-int.com/";
+        private static string domain = "https://api.partner.microsoft.com/";
         private static string basePath = "v1.0/payouts/";
         private static string resource = "transactionhistory";
 
@@ -23,7 +23,10 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage CreateRequest(string accessToken)
         {
-            // Add your filter string below if any. Example - "?$filter=earningForDate le 2019-09-24T20:51:35.174Z and (paymentId eq '006772397028')";
+            // Add your odata filter string below if any. 
+            // SUPPORTED $filter fields are - earningForDate, enrollmentParticipantId, programName, payableSubType, paymentId, leverCode, payoutStatus
+            // Example filter string - "?$filter=earningForDate ge 2019-06-27T23:16:31.009Z and earningForDate le 2019-09-25T23:16:31.009Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'Azure Marketplace') and (payableSubType eq 'SELL') and (paymentId eq '000000000000') and (leverCode eq 'Azure Market Place: Core Standard') and (payoutStatus eq 'SENT')";
+
             string filterString = "";
             string createTransactionHistoryRequestURI = domain + basePath + resource + filterString;
 
