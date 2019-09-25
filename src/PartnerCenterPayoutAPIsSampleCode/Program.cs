@@ -28,10 +28,14 @@ namespace PartnerCenterPayoutAPISampleCode
             var transactionHistoryRequestId = "<add_transactionhistory_request_id_here>";
             HttpResponseMessage transactionHistoryStatusResponse = TransactionHistory.GetRequest(accessToken, transactionHistoryRequestId);
             string transactionHistoryBlobLocation = JObject.Parse(transactionHistoryStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["blobLocation"].ToString();
+            string transactionHistoryRequestStatus = JObject.Parse(transactionHistoryStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["status"].ToString();
             PrintResponse(transactionHistoryStatusResponse);
-            
-            // Download the export zip file to local machine.
-            Utils.DownloadBlob(transactionHistoryBlobLocation);
+
+            // Download the export zip file to local machine if the request status is completed and blob location is populated.
+            if (transactionHistoryRequestStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(transactionHistoryBlobLocation))
+            {
+                Utils.DownloadBlob(transactionHistoryBlobLocation);
+            }
 
             //***************************************************************************************************************
             // PAYMENTS EXPORT APIS
@@ -46,10 +50,14 @@ namespace PartnerCenterPayoutAPISampleCode
             
             HttpResponseMessage paymentsStatusResponse = Payments.GetRequest(accessToken, paymentsRequestId);
             string paymentsBlobLocation = JObject.Parse(paymentsStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["blobLocation"].ToString();
+            string paymentsRequestStatus = JObject.Parse(paymentsStatusResponse.Content.ReadAsStringAsync().Result)["value"][0]["status"].ToString();
             PrintResponse(paymentsStatusResponse);
 
-            // Download the export zip file to local machine.
-            Utils.DownloadBlob(paymentsBlobLocation);
+            // Download the export zip file to local machine if the request status is completed and blob location is populated.
+            if (paymentsRequestStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(paymentsBlobLocation))
+            {
+                Utils.DownloadBlob(paymentsBlobLocation);
+            }
 
             Console.Read();
         }
