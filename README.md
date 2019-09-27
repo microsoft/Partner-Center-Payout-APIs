@@ -26,8 +26,8 @@ The Partner Center [Payments](https://partner.microsoft.com/dashboard/payouts/re
 Building on these capabilities, we are now introducing the ability for partners to use an API to get their Payout data directly. This leverages the capability of the [Export data](https://partner.microsoft.com/dashboard/payouts/reports/incentiveexport) that you might find on the Partner Center UI.
 
 Available APIs - https://apidocs.microsoft.com/services/partnerpayouts
-- Transaction history export - [Create]() a new request, [Retrieve]() an existing request and [Delete]() an existing request.
-- Payments export - [Create]() a new request, [Retrieve]() an existing request and [Delete]() an existing request.
+- Transaction history export - [Create](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/transactionhistory) a new request, [Retrieve](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/transactionhistoryAll) an existing request and [Delete](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/transactionhistory2) an existing request.
+- Payments export - [Create](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/payments) a new request, [Retrieve](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/paymentsAll) an existing request and [Delete](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/payments2) an existing request.
 
 ## Prerequisites
 - [Register an application with AAD/Microsoft Identity](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) in the Azure portal. Add appropriate owners and roles to the application.
