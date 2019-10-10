@@ -25,7 +25,7 @@ namespace PartnerCenterPayoutAPISampleCode
         {
             // Add your odata filter string below if any. 
             // SUPPORTED $filter fields are - payoutStatusUpdateTS, enrollmentParticipantId, programName, payoutOrderType, paymentId
-            // Example filter string - "?$filter=payoutStatusUpdateTS le 2019-09-25T23:11:55.647Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'Azure Marketplace') and (payoutOrderType eq 'SELL') and (paymentId eq '000000000000')";
+            // Example filter string - "?$filter=payoutStatusUpdateTS le 2019-09-25T23:11:55.647Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'CSP Direct Bill Partner') and (payoutOrderType eq 'REBATE') and (paymentId eq '000000000000')";
 
             string filterString = "";
             string createPaymentsRequestURI = domain + basePath + resource + filterString;
