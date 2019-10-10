@@ -49,7 +49,7 @@ Available APIs - https://apidocs.microsoft.com/services/partnerpayouts
 ## Transaction history filter options
 
 | Field name | Type | Description |
-|-------------|-------------|
+|-------------|-------------|-------------|
 | enrollmentParticipantId | string | Filter by your MPN or SellerId |
 | paymentId | string | Add applicable paymentId if any |
 | earningForDate | DateTime | Filter to get transactions in a particular time range. Format should be yyyy-MM-ddThh:mm:ssZ |
@@ -63,7 +63,7 @@ Sample filter string - "?$filter=earningForDate ge 2019-01-27T23:16:31.009Z and 
 ## Payments filter options
 
 | Field name | Type | Description |
-|-------------|-------------|
+|-------------|-------------|-------------|
 | enrollmentParticipantId | string | Filter by your MPN or SellerId |
 | paymentId | string | Add applicable paymentId if any |
 | payoutStatusUpdateTS | DateTime | Filter to get payments data in a particular time range. Format should be yyyy-MM-ddThh:mm:ssZ |
