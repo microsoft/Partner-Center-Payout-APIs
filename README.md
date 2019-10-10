@@ -42,9 +42,35 @@ Available APIs - https://apidocs.microsoft.com/services/partnerpayouts
 6. Press F5 or run the PartnerCenterPayoutAPIsSampleCode project.
 
 ## Important reminders
-1. Given the large volume of data, the SLA for the submitted request to be processed is 24 hours. 
+1. Given the large volume of data, the SLA for the submitted request to be processed is 8 hours. 
 2. Once the data is available for download, the delete API can also be used to delete any of the previous transaction history or payments requests. 
 3. Requests created through the API or the UI will be visible on the [Export data](https://partner.microsoft.com/dashboard/payouts/reports/incentiveexport) page and can be downloaded or deleted through the API or UI.
+
+## Transaction history filter options
+
+| Field name | Type | Description |
+|-------------|-------------|
+| enrollmentParticipantId | string | Filter by your MPN or SellerId |
+| paymentId | string | Add applicable paymentId if any |
+| earningForDate | DateTime | Filter to get transactions in a particular time range. Format should be yyyy-MM-ddThh:mm:ssZ |
+| programName | string | Filter by one or more programs you are enrolled in. Example values - 'CSP Indirect Provider', 'CSP 2T Indirect Provider', 'CSP Direct Bill Partner', 'CSP 1T Direct Partner', 'CSP Indirect Reseller', 'CSP 2T Indirect Reseller' |
+| leverCode | string | Filter by one or more particular levers in a program you are enrolled in. Example values - 'CSP Indirect Provider: Core', 'CSP Indirect Provider: FY19 H2: Core O365 Products', 'CSP Direct Partner: Core' |
+| payableSubType | string | Filter by the earning type. Example values - 'REBATE', 'COOP', 'FEE', 'SELL' |
+| payoutStatus | string | Filter transactions by the payout status. Example values - 'SENT', 'UPCOMING', 'IN PROGRESS' |
+
+Sample filter string - "?$filter=earningForDate ge 2019-01-27T23:16:31.009Z and earningForDate le 2019-09-25T23:16:31.009Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'CSP Direct Bill Partner') and (payableSubType eq 'REBATE') and (paymentId eq '000000000000') and (leverCode eq 'CSP Direct Partner: Core') and (payoutStatus eq 'SENT')"
+
+## Payments filter options
+
+| Field name | Type | Description |
+|-------------|-------------|
+| enrollmentParticipantId | string | Filter by your MPN or SellerId |
+| paymentId | string | Add applicable paymentId if any |
+| payoutStatusUpdateTS | DateTime | Filter to get payments data in a particular time range. Format should be yyyy-MM-ddThh:mm:ssZ |
+| programName | string | Filter by one or more programs you are enrolled in. Example values - 'CSP Indirect Provider', 'CSP 2T Indirect Provider', 'CSP Direct Bill Partner', 'CSP 1T Direct Partner', 'CSP Indirect Reseller', 'CSP 2T Indirect Reseller' |
+| payoutOrderType | string | Filter by the earning type. Example values - 'REBATE', 'COOP', 'FEE', 'SELL' |
+
+Sample filter string - "?$filter=payoutStatusUpdateTS le 2019-09-25T23:11:55.647Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'CSP Direct Bill Partner') and (payoutOrderType eq 'REBATE') and (paymentId eq '000000000000')"
 
 ## Coming soon
 The API is created to address the enhanced partner demand for Payment and Transaction history information access in a programmatic manner. There will continue to be enhancements made to the API with the updated documentation. Additionally, incorporation of the API with the Partner Center SDK will be explored.

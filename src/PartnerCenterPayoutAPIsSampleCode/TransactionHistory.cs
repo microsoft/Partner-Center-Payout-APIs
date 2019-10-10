@@ -25,7 +25,7 @@ namespace PartnerCenterPayoutAPISampleCode
         {
             // Add your odata filter string below if any. 
             // SUPPORTED $filter fields are - earningForDate, enrollmentParticipantId, programName, payableSubType, paymentId, leverCode, payoutStatus
-            // Example filter string - "?$filter=earningForDate ge 2019-06-27T23:16:31.009Z and earningForDate le 2019-09-25T23:16:31.009Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'Azure Marketplace') and (payableSubType eq 'SELL') and (paymentId eq '000000000000') and (leverCode eq 'Azure Market Place: Core Standard') and (payoutStatus eq 'SENT')";
+            // Example filter string - "?$filter=earningForDate ge 2019-01-27T23:16:31.009Z and earningForDate le 2019-09-25T23:16:31.009Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'CSP Direct Bill Partner') and (payableSubType eq 'REBATE') and (paymentId eq '000000000000') and (leverCode eq 'CSP Direct Partner: Core') and (payoutStatus eq 'SENT')";
 
             string filterString = "";
             string createTransactionHistoryRequestURI = domain + basePath + resource + filterString;
