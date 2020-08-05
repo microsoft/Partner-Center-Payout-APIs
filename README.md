@@ -18,7 +18,7 @@ Taxonomies for products and languages: https://review.docs.microsoft.com/new-hop
 -->
 
 The Partner Center [Payments](https://partner.microsoft.com/dashboard/payouts/reports/incentivepayments) and [Transaction History](https://partner.microsoft.com/dashboard/payouts/reports/transactionhistory) reports have been built to provide the following high level benefits:
-- Multi-MPN and/or publisher aggregated view (driven by user’s permission settings) 
+- Multi-MPN and/or publisher aggregated view (driven by userâ€™s permission settings) 
 - Rich filtering experience 
 - Simplified export functionality for multiple MPNs and/or publishers
 - Enhanced data transparency on the UI
@@ -42,7 +42,7 @@ Available APIs - https://apidocs.microsoft.com/services/partnerpayouts
 6. Press F5 or run the PartnerCenterPayoutAPIsSampleCode project.
 
 ## Important reminders
-1. Given the large volume of data, the SLA for the submitted request to be processed is 8 hours. 
+1. Given the large volume of data, the SLA for the submitted request to be processed is 24 hours. 
 2. Once the data is available for download, the delete API can also be used to delete any of the previous transaction history or payments requests. 
 3. Requests created through the API or the UI will be visible on the [Export data](https://partner.microsoft.com/dashboard/payouts/reports/incentiveexport) page and can be downloaded or deleted through the API or UI.
 
