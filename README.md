@@ -30,8 +30,60 @@ Available APIs - https://apidocs.microsoft.com/services/partnerpayouts
 - Payments export - [Post](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/payments) a new request, [Get](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/paymentsAll) an existing request and [Delete](https://apidocs.microsoft.com/services/partnerpayouts#/ExportRequests/payments2) an existing request.
 
 ## Prerequisites
-- [Register an application with AAD/Microsoft Identity](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) in the Azure portal. Add appropriate owners and roles to the application.
 - Install [Visual Studio](https://visualstudio.microsoft.com/downloads/) for your platform.
+- [Register an application with AAD/Microsoft Identity](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) in the Azure portal. Add appropriate owners and roles to the application. Detailed instructions are:
+
+    1. For the user which will run the application, make sure that they have access to Business Contributor and Finance Contributor roles in Partner Center. This is setup in User Management within Partner Center.
+
+    1. In AAD, create an App Registration
+        * From the Azure Portal, go to Azure Active Directory and select App Registrations
+        
+        * Click on *New registration*
+
+        ![New registration](./images/app-registration.png)
+
+        * For the fields on the new registration:
+
+            * Name: Any name you like. Ex: *Partner Center Reporting*
+
+            * Supported account types: leave at default (Single Tenant)
+
+            * Redirect URI: leave as is
+
+            * Press *Register*.
+
+        * Select *Authentication* and set *Allow public client flows* to *Yes*.
+
+        * Click on *Save*.
+
+        ![Authentication](./images/authentication.png)
+
+    1. Setup *API permissions*.
+
+        * Click on *API permissions*
+
+        * Click on *Add a permission*
+
+        * Select *APIs my organization uses*
+
+        * Search for __4990cffe-04e8-4e8b-808a-1175604b879f__ (should be *Microsoft Partner*)
+
+        * Click on *Microsoft Partner*
+
+        * Check the box for *user_impersonation*
+
+        * Click on *Add permissions*
+
+        ![Microsoft Partner](./images/microsoft-partner.png)
+
+
+    1. Click on *Grant admin consent for &lt;tenant name&gt;*. Click on *Yes* for the dialog that pops up (because you want to grant this permission now—this flow won’t exist from code). Permission should look like this when done:
+
+        ![Permissions complete](./images/permission-complete.png)
+
+    1. Capture the application ID. This will be used in authentication within the sample application. The application ID is on the *Overview* tab for the App Registration we’ve been working on.
+
+        ![Application ID](./images/application-id.png)
 
 ## Running the sample
 1. Clone or download this sample repository.
