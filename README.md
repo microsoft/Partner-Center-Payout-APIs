@@ -88,7 +88,7 @@ Available APIs - https://apidocs.microsoft.com/services/partnerpayouts
 ## Running the sample
 1. Clone or download this sample repository.
 2. Open the solution file (..\Partner-Center-Payout-APIs\src\PartnerCenterPayoutAPIsSampleCode\PartnerCenterPayoutAPIsSampleCode.sln) in Visual Studio or your preferred IDE.
-3. Add the values for the tenantId, clientId, userName and password keys in the App.config file. TenantId and ClientId values can be found under your Azure Active Directory application registered on the Azure portal while completing the Prerequisite step.
+3. Add the values for the tenantId, and clientId keys in the App.config file. tenantId and clientId values can be found under your Azure Active Directory application registered on the Azure portal while completing the Prerequisite step.
 4. Add the necessary requestId you want to retrieve the data for in Program.cs.
 5. Add appropriate filter conditions if any in the TransactionHistory.cs file for Transaction history request and/or Payments.cs file for Payments request.
 6. Press F5 or run the PartnerCenterPayoutAPIsSampleCode project.
