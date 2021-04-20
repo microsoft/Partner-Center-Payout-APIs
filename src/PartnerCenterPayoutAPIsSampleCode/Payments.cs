@@ -1,20 +1,20 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace PartnerCenterPayoutAPISampleCode
-{
-    using System.Net.Http;
-    using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
+namespace PartnerCenterPayoutAPIsSampleCode
+{
     /// <summary>
     /// Contains actions or methods that can be performed related to Partner Center Payout - Payments.
     /// </summary>
     public class Payments
     {
-        private static HttpClient _httpClient = new HttpClient();
-        private static string domain = "https://api.partner.microsoft.com/";
-        private static string basePath = "v1.0/payouts/";
-        private static string resource = "payments";
+        private static HttpClient PaymentClient = new HttpClient();
+        private const string Domain = "https://api.partner.microsoft.com/";
+        private const string BasePath = "v1.0/payouts/";
+        private const string Resource = "payments";
 
         /// <summary>
         /// Creates a new Partner Center Payout Payments request.
@@ -27,13 +27,13 @@ namespace PartnerCenterPayoutAPISampleCode
             // SUPPORTED $filter fields are - payoutStatusUpdateTS, enrollmentParticipantId, programName, payoutOrderType, paymentId
             // Example filter string - "?$filter=payoutStatusUpdateTS le 2019-09-25T23:11:55.647Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'CSP Direct Bill Partner') and (payoutOrderType eq 'REBATE') and (paymentId eq '000000000000')";
 
-            string filterString = "";
-            string createPaymentsRequestURI = domain + basePath + resource + filterString;
+            const string filterString = "";
+            var createPaymentsRequestUri = $"{Domain}{BasePath}{Resource}{filterString}"; 
 
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, createPaymentsRequestURI);
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, createPaymentsRequestUri);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage response = _httpClient.SendAsync(requestMessage).Result;
+            var response = PaymentClient.SendAsync(requestMessage).Result;
 
             return response;
         }
@@ -46,12 +46,12 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage GetRequest(string accessToken, string requestId)
         {
-            var paymentsStatusUrl = domain + basePath + resource + "/" + requestId;
+            var paymentsStatusUrl = $"{Domain}{BasePath}{Resource}/{requestId}"; 
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, paymentsStatusUrl);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage response = _httpClient.SendAsync(requestMessage).Result;
+            HttpResponseMessage response = PaymentClient.SendAsync(requestMessage).Result;
 
             return response;
         }
@@ -64,12 +64,12 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage DeleteRequest(string accessToken, string requestId)
         {
-            string deletePaymentsRequestURI = domain + basePath + resource + "/" + requestId;
+            var deletePaymentsRequestUri = Domain + BasePath + Resource + "/" + requestId;
 
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Delete, deletePaymentsRequestURI);
+            var requestMessage = new HttpRequestMessage(HttpMethod.Delete, deletePaymentsRequestUri);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage response = _httpClient.SendAsync(requestMessage).Result;
+            var response = PaymentClient.SendAsync(requestMessage).Result;
 
             return response;
         }

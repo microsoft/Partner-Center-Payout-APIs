@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.WindowsAzure.Storage.Blob;
+using System;
+using System.IO;
+
 namespace PartnerCenterPayoutAPIsSampleCode
 {
-    using System;
-    using System.IO;
-    using System.IO.Compression;
-    using Microsoft.WindowsAzure.Storage.Blob;
-
     public static class Utils
     {
 
@@ -17,7 +16,7 @@ namespace PartnerCenterPayoutAPIsSampleCode
 
             // Set the directory path and get the filename from the blobLocation url
             string[] uriSegments = (new Uri(blobLocation)).Segments;
-            string directoryPath = "C:\\Users\\" + Environment.UserName + "\\Downloads\\PayoutExport\\";
+            var directoryPath = Path.GetFullPath($"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\..\\Downloads\\PayoutExport\\");
 
             if (!Directory.Exists(directoryPath))
             {

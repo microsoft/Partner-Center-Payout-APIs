@@ -1,20 +1,20 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace PartnerCenterPayoutAPISampleCode
-{
-    using System.Net.Http;
-    using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
+namespace PartnerCenterPayoutAPIsSampleCode
+{
     /// <summary>
     /// Contains actions or methods that can be performed related to Partner Center Payout - Transaction History.
     /// </summary>
     public class TransactionHistory
     {
-        private static HttpClient _httpClient = new HttpClient();
-        private static string domain = "https://api.partner.microsoft.com/";
-        private static string basePath = "v1.0/payouts/";
-        private static string resource = "transactionhistory";
+        private static readonly HttpClient TxClient = new HttpClient();
+        private const string Domain = "https://api.partner.microsoft.com/";
+        private const string BasePath = "v1.0/payouts/";
+        private const string Resource = "transactionhistory";
 
         /// <summary>
         /// Creates a new Partner Center Payout Transaction History request.
@@ -27,13 +27,13 @@ namespace PartnerCenterPayoutAPISampleCode
             // SUPPORTED $filter fields are - earningForDate, enrollmentParticipantId, programName, payableSubType, paymentId, leverCode, payoutStatus
             // Example filter string - "?$filter=earningForDate ge 2019-01-27T23:16:31.009Z and earningForDate le 2019-09-25T23:16:31.009Z and (enrollmentParticipantId eq 'XXXXXXX') and (programName eq 'CSP Direct Bill Partner') and (payableSubType eq 'REBATE') and (paymentId eq '000000000000') and (leverCode eq 'CSP Direct Partner: Core') and (payoutStatus eq 'SENT')";
 
-            string filterString = "";
-            string createTransactionHistoryRequestURI = domain + basePath + resource + filterString;
+            const string filterString = "";
+            string createTransactionHistoryRequestUri = $"{Domain}{BasePath}{Resource}{filterString}";
 
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, createTransactionHistoryRequestURI);
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, createTransactionHistoryRequestUri);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage response = _httpClient.SendAsync(requestMessage).Result;
+            var response = TxClient.SendAsync(requestMessage).Result;
 
             return response;
         }
@@ -46,12 +46,12 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage GetRequest(string accessToken, string requestId)
         {
-            var transactionHistoryStatusUrl = domain + basePath + resource + "/" + requestId;
+            var transactionHistoryStatusUrl = $"{Domain}{BasePath}{Resource}/{requestId}";
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, transactionHistoryStatusUrl);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage response = _httpClient.SendAsync(requestMessage).Result;
+            HttpResponseMessage response = TxClient.SendAsync(requestMessage).Result;
 
             return response;
         }
@@ -64,12 +64,12 @@ namespace PartnerCenterPayoutAPISampleCode
         /// <returns>Standard Http Response from the API</returns>
         public static HttpResponseMessage DeleteRequest(string accessToken, string requestId)
         {
-            string deleteTransactionHistoryRequestURI = domain + basePath + resource + "/" + requestId;
+            var deleteTransactionHistoryRequestUri = $"{Domain}{BasePath}{Resource}/{requestId}";
 
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Delete, deleteTransactionHistoryRequestURI);
+            var requestMessage = new HttpRequestMessage(HttpMethod.Delete, deleteTransactionHistoryRequestUri);
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            HttpResponseMessage response = _httpClient.SendAsync(requestMessage).Result;
+            var response = TxClient.SendAsync(requestMessage).Result;
 
             return response;
         }
